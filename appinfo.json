@@ -1,0 +1,9 @@
+{
+	"id": "uk.co.incandescant.blunderground",
+	"version": "0.0.1",
+	"vendor": "Joshua Lock",
+	"type": "web",
+	"main": "index.html",
+	"title": "Blunderground",
+	"icon": "icon.png"
+}
