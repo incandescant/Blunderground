@@ -14,12 +14,6 @@ MainViewAssistant.prototype.deactivate = function(event) {
 MainViewAssistant.prototype.cleanup = function(event) {
 };
 
-MainViewAssistant.prototype.renderMap = function(event) {
-    var content = Mojo.View.render({object: {appBase: Mojo.appPath},
-                                    template: "mainView/map"});
-    this.controller.update("scrolling_contents", content);  
-};
-
 /*
 // Show the current tube status
 MainViewAssistant.prototype.status = function(event) {
