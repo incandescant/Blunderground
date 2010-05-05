@@ -1,5 +1,7 @@
 [
-    {"source": "app/assistants/stage-assistant.js"},
+    {
+        "source": "app/assistants/stage-assistant.js"
+    },
     {
         "scenes": "mainView",
         "source": "app/assistants/mainView-assistant.js"
@@ -7,5 +9,8 @@
     {
         "scenes": "statusView",
         "source": "app/assistants/statusView-assistant.js"
+    },
+    {
+        "source": "app/models/status.js"
     }
 ]
