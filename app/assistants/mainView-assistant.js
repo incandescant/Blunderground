@@ -1,4 +1,5 @@
-function MainViewAssistant() {
+function MainViewAssistant(status) {
+    this.status = status;
 }
 
 MainViewAssistant.prototype.setup = function() {
@@ -45,7 +46,7 @@ MainViewAssistant.prototype.handleCommand = function(event) {
             });
             break;
         case "do-tubeStatus":
-            stageController.swapScene("statusView");
+            stageController.swapScene("statusView", this.status);
             break;
       }
   }

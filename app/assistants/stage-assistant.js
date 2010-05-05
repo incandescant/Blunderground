@@ -2,5 +2,7 @@ function StageAssistant() {
 }
 
 StageAssistant.prototype.setup = function() {
-    this.controller.pushScene("mainView");
+    this.status = new Status();
+
+    this.controller.pushScene("mainView", this.status);
 };

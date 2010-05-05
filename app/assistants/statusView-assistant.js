@@ -1,4 +1,5 @@
-function StatusViewAssistant() {
+function StatusViewAssistant(status) {
+    this.status = status;
 }
 
 StatusViewAssistant.prototype.setup = function() {
@@ -44,7 +45,7 @@ StatusViewAssistant.prototype.handleCommand = function(event) {
             });
             break;
         case "do-tubeMap":
-            stageController.swapScene("mainView");
+            stageController.swapScene("mainView", this.status);
             break;
       }
   }
