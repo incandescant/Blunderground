@@ -17,6 +17,19 @@ StatusViewAssistant.prototype.setup = function() {
                                     ]
                                 }
                                 );
+    this.controller.setupWidget("statusListWidget",
+                               {
+                                   itemTemplate:"statusView/statusRowTemplate",
+                                   listTemplate:"statusView/statusListTemplate",
+                                   swipeToDelete: false,
+                                   renderLimit: 20,
+                                   reorderable: false
+                               },
+                               this.statusListModel = { items: this.status.list });
+
+    this.showStatusHandler = this.showStatus.bindAsEventListener(this);
+    this.controller.listen("statusListWidget", Mojo.Event.listTap,
+                          this.showStatusHandler);
 };
 
 StatusViewAssistant.prototype.activate = function(event) {
@@ -28,6 +41,13 @@ StatusViewAssistant.prototype.deactivate = function(event) {
 };
 
 StatusViewAssistant.prototype.cleanup = function(event) {
+    this.controller.stopListening("statusListWidget",
+                                 Mojo.Event.listTap, this.showStatusHandler);
+};
+
+StatusViewAssistant.prototype.showStatus = function(event) {
+    //Mojo.Controller.stageController.pushScene("statusView", this.status.list, event.index);
+};
 
 StatusViewAssistant.prototype.handleCommand = function(event) {
     var stageController = Mojo.Controller.getAppController().getActiveStageController();
