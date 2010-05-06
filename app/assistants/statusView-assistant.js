@@ -5,18 +5,27 @@ function StatusViewAssistant(status) {
 StatusViewAssistant.prototype.setup = function() {
     this.controller.setupWidget(Mojo.Menu.appMenu,
                                 this.attributes = {
-                                    omitDefaultItems: true
+                                    //omitDefaultItems: true
                                 },
                                 this.model = {
                                     visible: true,
                                     items: [
                                         { label: "About Blunderground...",
-                                          command: "do-aboutBlunderground"},
-                                        { label: "Tube Map",
-                                          command: "do-tubeMap"}
+                                          command: "do-aboutBlunderground"}
                                     ]
                                 }
                                 );
+
+    this.commandMenuModel = {
+        label: "Status Menu",
+        items: [
+            {label: "Tube Map", command: "do-tubeMap"},
+            {label: "Update Status", command: "do-updateStatus"}
+        ]
+    };
+    this.controller.setupWidget(Mojo.Menu.commandMenu, undefined,
+                                this.commandMenuModel);
+
     this.controller.setupWidget("statusListWidget",
                                {
                                    itemTemplate:"statusView/statusRowTemplate",
@@ -66,6 +75,9 @@ StatusViewAssistant.prototype.handleCommand = function(event) {
             break;
         case "do-tubeMap":
             stageController.swapScene("mainView", this.status);
+            break;
+        case "do-updateStatus":
+            //this.status.updateStatus();
             break;
       }
   }

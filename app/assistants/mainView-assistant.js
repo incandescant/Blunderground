@@ -5,18 +5,26 @@ function MainViewAssistant(status) {
 MainViewAssistant.prototype.setup = function() {
     this.controller.setupWidget(Mojo.Menu.appMenu,
                                 this.attributes = {
-                                    omitDefaultItems: true
+                                    //omitDefaultItems: true
                                 },
                                 this.model = {
                                     visible: true,
                                    items: [
                                         { label: "About Blunderground...",
-                                          command: "do-aboutBlunderground"},
-                                        { label: "Tube Status",
-                                          command: "do-tubeStatus"}
+                                          command: "do-aboutBlunderground"}
                                     ]
                                 }
                                 );
+
+    this.commandMenuModel = {
+        label: "Map Menu",
+        items: [
+            {label: "Tube Status", command: "do-tubeStatus"}
+        ]
+    };
+    this.controller.setupWidget(Mojo.Menu.commandMenu, undefined,
+                                this.commandMenuModel);
+
     this.controller.setupWidget("mapScroller", { mode: "free" },
                                 this.mapScrollerModel = {});
 };
