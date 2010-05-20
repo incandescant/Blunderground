@@ -5,7 +5,7 @@
  */
 
 var Status = Class.create ({
-    emptyList: [
+    dummyList: [
         {
             line:"bakerloo",
             status:"unknown",
@@ -64,17 +64,18 @@ var Status = Class.create ({
     ],
 
     initialize: function() {
-        this.list = this.emptyList;
-        this.statusUrl = "http://tubeupdates.com/rss/all.xml";
+        this.list = this.dummyList;
+        this.statusUrl = "http://api.tubeupdates.com";
         this.lastUpdated = "";
     },
 
     updateStatus: function() {
-        Mojo.Log.info("Fetching tube status");
+        Mojo.Log.info("Fetching tube status from " + this.statusUrl);
 
-        var request = new Ajax.request(this.statusUrl, {
+        var request = new Ajax.Request(this.statusUrl, {
             method: "get",
             evalJSON: "false",
+            parameters: "method=get.status&lines=all&format=xml",
             onSuccess: this.updateStatusSuccess.bind(this),
             onFailure: this.updateStatusFailure.bind(this)
         });
@@ -85,39 +86,44 @@ var Status = Class.create ({
         var m = new t.evaluate(transport);
 
         Mojo.Log.info(m);
-    }//,
+    },
 
-    // updateStatusSuccess: function(transport) {
-    //     Mojo.Log.info("Status fetched, now to process");
+    updateStatusSuccess: function(transport) {
+        Mojo.Log.info("Success");
 
-    //     // work around occasional XML errors
-    //     if (transport.responseXML == null && transport.responseText !== null) {
-    //         Mojo.log.info("Request not XML, converting");
-    //         transport.responseXML = new DOMParser().parseFromString
-    //         (transport.responseText, "text/xml");
-    //     }
+        // work around occasional XML errors
+        if (transport.responseXML == null && transport.responseText !== null) {
+            Mojo.log.info("Request not XML, converting");
+            transport.responseXML = new DOMParser().parseFromString(
+                transport.responseText, "text/xml");
+        }
 
-    //     this.processStatus(transport);
-    // },
+        this.processStatus(transport);
+    },
 
-    // processStatus: function(trasnport) {
-    //     var statusList = [];
-    //     var items = transport.responseXML.getElementsByTagName("item");
-    //     for (i=0;i<items.length; i++) {
-    //         statusList[i] = {
-    //             title: unescape(items[i].getElementByTagName("title").item(0).textContent),
-    //             text: items[i].getElementsByTagName("description").item(0).textContent,
-    //             url: items[i].getElementsByTagName("link").item(0).textContent
-    //         };
-    //     }
+    processStatus: function(transport) {
+        var lines = $(transport.responseXML).getElementsByTagName("line");
+        var stati = [];
 
-    //     /*
-    //      * Iterate items and pull the line name, status and details out and
-    //      * update this.list with line, status and details
-    //      * Need to process title for line and status, details are in description
-    //      */
+        Mojo.Log.info("Processing status\n" + transport.responseXML);
+        Mojo.Log.info("Response is: " + lines);
 
-    //     // Set the last update
-    //     this.lastUpdate = new Date();
-    // }
+        /*
+         * Iterate the returned lines XML and pull out the data into our
+         * this.list
+         */
+
+        Mojo.Log.info("Response has " + lines.length + " items");
+        for (var i = 0; i < lines.length; i++) {
+            stati[i] = {
+                line:lines[i].getElementsByTagName("name").item(0).textContent,
+                status:lines[i].getElementsByTagName("status").item(0).textContent,
+                details:lines[i].getElementsByTagName("messages").item(0).textContent
+            };
+        }
+
+        // Set the last update
+        this.list = stati;
+        this.lastUpdate = new Date();
+    }
 });
