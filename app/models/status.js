@@ -115,9 +115,7 @@ var Status = Class.create ({
     processStatus: function(transport) {
         var lines = $(transport.responseXML).getElementsByTagName("line");
         var stati = [];
-
-        Mojo.Log.info("Processing status\n" + transport.responseXML);
-        Mojo.Log.info("Response is: " + lines);
+        Mojo.Log.info("Processing status");
 
         /*
          * Iterate the returned lines XML and pull out the data into our
@@ -126,9 +124,11 @@ var Status = Class.create ({
 
         Mojo.Log.info("Response has " + lines.length + " items");
         for (var i = 0; i < lines.length; i++) {
+            var s = lines[i].getElementsByTagName("status").item(0).textContent;
             stati[i] = {
                 line:lines[i].getElementsByTagName("name").item(0).textContent,
-                status:lines[i].getElementsByTagName("status").item(0).textContent,
+                status:s.camelize(),
+                style:s.gsub(' ', '-'),
                 details:lines[i].getElementsByTagName("messages").item(0).textContent
             };
         }
