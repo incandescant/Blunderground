@@ -1,4 +1,6 @@
 = To Do
+* Do we need to store the processed "style" value in the model or can we do the
+  processing in the template?
 * Don't hard code the image size in the CSS, we just want device width/height here
 * Add a feed parser for tube status
 * Remember last position on tube map
