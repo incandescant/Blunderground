@@ -9,56 +9,67 @@ var Status = Class.create ({
         {
             line:"bakerloo",
             status:"unknown",
+            style:"unknown",
             details:"none"
         },
         {
             line:"central",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"circle",
             status:"unknown",
+            style:"part-closure",
             details:"none"
         },
         {
             line:"district",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"hammersmith & city",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"jubilee",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"metropolitan",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"northern",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"picadilly",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"victoria",
             status:"unknown",
+            style:"good-service",
             details:"none"
         },
         {
             line:"waterloo & city",
             status:"unknown",
+            style:"good-service",
             details:"none"
         }
     ],
