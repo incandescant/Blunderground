@@ -131,6 +131,17 @@ var Status = Class.create ({
                 style:s.gsub(' ', '-'),
                 details:lines[i].getElementsByTagName("messages").item(0).textContent
             };
+
+            /* Sanitise some statuses, we only have three "styles" */
+            switch (stati[i].style)
+            {
+                case "planned-closure":
+                stati[i].style = "part-closure";
+                break;
+                case "part-suspended":
+                stati[i].style = "bad-service";
+                break;
+            }
         }
 
         // Set the last update
