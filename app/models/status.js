@@ -121,15 +121,17 @@ var Status = Class.create ({
          * Iterate the returned lines XML and pull out the data into our
          * this.list
          */
-
-        Mojo.Log.info("Response has " + lines.length + " items");
         for (var i = 0; i < lines.length; i++) {
             var s = lines[i].getElementsByTagName("status").item(0).textContent;
+            var d = lines[i].getElementsByTagName("messages").item(0).textContent.gsub('\t', '');
+            if (d.length < 1)
+                d = "";
+
             stati[i] = {
                 line:lines[i].getElementsByTagName("name").item(0).textContent,
                 status:s.camelize(),
                 style:s.gsub(' ', '-'),
-                details:lines[i].getElementsByTagName("messages").item(0).textContent
+                details:d
             };
 
             /* Sanitise some statuses, we only have three "styles" */
@@ -139,7 +141,12 @@ var Status = Class.create ({
                 stati[i].style = "bad-service";
                 break;
                 case "part-suspended":
+                case "minor-delays":
                 stati[i].style = "part-closure";
+                break;
+                // this seems weird, but I've seen it in a live feed
+                case "home":
+                stati[i].style = "unknown";
                 break;
             }
         }
