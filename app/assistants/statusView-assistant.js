@@ -77,7 +77,7 @@ StatusViewAssistant.prototype.handleCommand = function(event) {
             stageController.swapScene("mainView", this.status);
             break;
         case "do-updateStatus":
-            //this.status.updateStatus();
+            this.status.updateStatus();
             break;
       }
   }
