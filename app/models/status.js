@@ -110,6 +110,9 @@ var Status = Class.create ({
         }
 
         this.processStatus(transport);
+
+        this.updateListModel();
+        this.statusListChanged = true;
     },
 
     processStatus: function(transport) {
@@ -154,5 +157,23 @@ var Status = Class.create ({
         // Set the last update
         this.list = stati;
         this.lastUpdate = new Date();
+    },
+
+    registerListModel: function(sceneAssistant) {
+        Mojo.Log.info("Model Registered");
+        this.listAssistant = sceneAssistant;
+    },
+
+    removeListModel: function() {
+        Mojo.Log.info("Model Removed");
+        this.listAssistant = undefined;
+    },
+
+    updateListModel: function() {
+        Mojo.Log.info("Model Updated");
+        if (this.listAssistant !== undefined) {
+            this.listAssistant.statusListModel.items = this.list;
+            this.listAssistant.controller.modelChanged(this.listAssistant.statusListModel, this);
+        }
     }
 });

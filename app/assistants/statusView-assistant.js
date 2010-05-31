@@ -34,7 +34,7 @@ StatusViewAssistant.prototype.setup = function() {
                                    renderLimit: 20,
                                    reorderable: false
                                },
-                               this.statusListModel = { items: this.status.list });
+    this.statusListModel = { items: this.status.list });
 
     this.showStatusHandler = this.showStatus.bindAsEventListener(this);
     this.controller.listen("statusListWidget", Mojo.Event.listTap,
@@ -42,10 +42,12 @@ StatusViewAssistant.prototype.setup = function() {
 };
 
 StatusViewAssistant.prototype.activate = function(event) {
+    this.status.registerListModel(this);
 
 };
 
 StatusViewAssistant.prototype.deactivate = function(event) {
+    this.status.removeListModel(this.status);
 
 };
 
