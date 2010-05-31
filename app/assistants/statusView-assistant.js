@@ -43,12 +43,10 @@ StatusViewAssistant.prototype.setup = function() {
 
 StatusViewAssistant.prototype.activate = function(event) {
     this.status.registerListModel(this);
-
 };
 
 StatusViewAssistant.prototype.deactivate = function(event) {
     this.status.removeListModel(this.status);
-
 };
 
 StatusViewAssistant.prototype.cleanup = function(event) {
@@ -57,7 +55,7 @@ StatusViewAssistant.prototype.cleanup = function(event) {
 };
 
 StatusViewAssistant.prototype.showStatus = function(event) {
-    //Mojo.Controller.stageController.pushScene("statusView", this.status.list, event.index);
+    Mojo.Controller.stageController.pushScene("statusDetails", this.status, event.index);
 };
 
 StatusViewAssistant.prototype.handleCommand = function(event) {
