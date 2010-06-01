@@ -10,3 +10,4 @@ status viewer.
 * Remember last position on tube map
 * Station finder
 * Zoom to nearest station (get location from OSM)
+* Handle rotation
