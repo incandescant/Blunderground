@@ -141,12 +141,14 @@ var Status = Class.create ({
                 details:d
             };
 
+            //Mojo.Log.info(stati[i].style);
             /* Sanitise some statuses, we only have three "styles" */
             switch (stati[i].style)
             {
                 case "planned-closure":
                 stati[i].style = "bad-service";
                 break;
+                case "severe-delays":
                 case "part-suspended":
                 case "minor-delays":
                 stati[i].style = "part-closure";
