@@ -4,6 +4,7 @@ A WebOS application for navigating the London underground. Has a map and a tube
 status viewer.
 
 = To Do
+* Handle back properly and fix stacking
 * Do we need to store the processed "style" value in the model or can we do the
   processing in the template?
 * Don't hard code the image size in the CSS, we just want device width/height here
