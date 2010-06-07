@@ -17,16 +17,6 @@ StatusDetailsAssistant.prototype.setup = function() {
                                 }
                                 );
 
-    this.commandMenuModel = {
-        label: "Status Menu",
-        items: [
-            {label: "Tube Map", command: "do-tubeMap"},
-            {label: "Tube Status", command: "do-tubeStatus"}
-        ]
-    };
-    this.controller.setupWidget(Mojo.Menu.commandMenu, undefined,
-                                this.commandMenuModel);
-
     var detailsTitleElement = this.controller.get("detailsViewTitle");
     var detailsSummaryElement = this.controller.get("detailsViewSummary");
     var detailsStatusElement = this.controller.get("detailsViewStatus");
@@ -58,12 +48,6 @@ StatusDetailsAssistant.prototype.handleCommand = function(event) {
                      {label: "OK", value:""}
                  ]
             });
-            break;
-        case "do-tubeStatus":
-            stageController.swapScene("statusView", this.status);
-            break;
-        case "do-tubeMap":
-            stageController.swapScene("mainView", this.status);
             break;
       }
   }
