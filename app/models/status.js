@@ -65,7 +65,7 @@ var Status = Class.create ({
 
             stati[i] = {
                 line:lines[i].getElementsByTagName("name").item(0).textContent,
-                status:s.camelize(),
+                status:s.capitalize(),
                 style:s.gsub(' ', '-'),
                 details:d
             };
