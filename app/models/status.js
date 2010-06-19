@@ -6,10 +6,7 @@
 
 var Status = Class.create ({
     initialize: function() {
-        this.list = [{
-                         line: "Press 'Update Status' to fetch",
-                         style: "bad-service"
-                     }];
+        this.list = [];
         this.statusUrl = "http://api.tubeupdates.com";
         this.lastUpdated = "";
     },
@@ -31,10 +28,12 @@ var Status = Class.create ({
         var m = new t.evaluate(transport);
 
         Mojo.Log.info(m);
+        this.listAssistant.notifyFail();
     },
 
     updateStatusSuccess: function(transport) {
         Mojo.Log.info("Success");
+        this.listAssistant.notifySuccess();
 
         // work around occasional XML errors
         if (transport.responseXML == null && transport.responseText !== null) {

@@ -23,6 +23,9 @@ StatusViewAssistant.prototype.setup = function() {
             {label: "Update Status", command: "do-updateStatus"}
         ]
     };
+
+    this.controller.get("statusListMain").hide();
+
     this.controller.setupWidget(Mojo.Menu.commandMenu, undefined,
                                 this.commandMenuModel);
 
@@ -58,6 +61,23 @@ StatusViewAssistant.prototype.showStatus = function(event) {
     Mojo.Controller.stageController.pushScene("statusDetails", this.status, event.index);
 };
 
+StatusViewAssistant.prototype.updateStatus = function(event) {
+    this.status.updateStatus(this);
+    this.controller.get("statusListBanner").innerHTML = "<p>Fetching status...</p>";
+};
+
+/* Status model uses the following two methods to update the view regarding
+ * success of the status update.
+ */
+StatusViewAssistant.prototype.notifyFail = function() {
+    this.controller.get("statusListBanner").innerHTML = "<p>Updating status failed, do you have a connection to the internet?</p>";
+};
+
+StatusViewAssistant.prototype.notifySuccess = function() {
+    this.controller.get("statusListBanner").hide();
+    this.controller.get("statusListMain").show();
+};
+
 StatusViewAssistant.prototype.handleCommand = function(event) {
     var stageController = Mojo.Controller.getAppController().getActiveStageController();
 
@@ -77,7 +97,7 @@ StatusViewAssistant.prototype.handleCommand = function(event) {
             stageController.swapScene("mainView", this.status);
             break;
         case "do-updateStatus":
-            this.status.updateStatus();
+            this.updateStatus();
             break;
       }
   }
