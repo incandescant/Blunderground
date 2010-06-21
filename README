@@ -1,7 +1,13 @@
 == Blunderground
 
-A WebOS application for navigating the London underground. Has a map and a tube
-status viewer.
+Blunderground is a WebOS application built to help when navigating the London
+underground. It provides a pannable tube map and, when an internet connection is
+available, the ability to view the status of the various tube lines.
+
+Blunderground - an open source tube application for the Palm WebOS
+Copyright (C) 2010 Joshua Lock. All rights reserved.
+Released under the terms of the GNU LGPL 2.1
+Written by - Joshua Lock <joshual@joshual.me.uk>
 
 = To Do
 * Handle back properly and fix stacking
