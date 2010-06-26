@@ -102,6 +102,10 @@ StatusViewAssistant.prototype.tryUpdate = function(event) {
     this.controller.get("statusListBanner").innerHTML = "<p>Fetching status...</p>";
 };
 
+StatusViewAssistant.prototype.notifyNoNet = function(event) {
+    this.controller.get("statusListBanner").innerHTML = "<p>No internet connection is available to update tube status.</p>";
+};
+
 /* Status model uses the following two methods to update the view regarding
  * success of the status update.
  */
