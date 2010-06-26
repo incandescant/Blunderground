@@ -42,7 +42,7 @@ StatusViewAssistant.prototype.setup = function() {
         label: "Status Menu",
         items: [
             {label: "Tube Map", command: "do-tubeMap"},
-            {label: "Update Status", command: "do-updateStatus"}
+            {label: "Refresh Status", command: "do-updateStatus"}
         ]
     };
 
@@ -68,6 +68,7 @@ StatusViewAssistant.prototype.setup = function() {
 
 StatusViewAssistant.prototype.activate = function(event) {
     this.status.registerListModel(this);
+    this.tryUpdate(this);
 };
 
 StatusViewAssistant.prototype.deactivate = function(event) {
@@ -83,8 +84,21 @@ StatusViewAssistant.prototype.showStatus = function(event) {
     Mojo.Controller.stageController.pushScene("statusDetails", this.status, event.index);
 };
 
-StatusViewAssistant.prototype.updateStatus = function(event) {
-    this.status.updateStatus(this);
+StatusViewAssistant.prototype.updateStatus = function(response) {
+    if (response.isInternetConnectionAvailable == true) {
+        this.status.updateStatus(this);
+    } else {
+        this.notifyFail();
+    }
+};
+
+StatusViewAssistant.prototype.tryUpdate = function(event) {
+    this.controller.serviceRequest('palm://com.palm.connectionmanager', {
+        method: 'getstatus',
+        parameters: {},
+        onSuccess: this.updateStatus.bind(this),
+        onFailure: this.notifyNoNet.bind(this)
+    });
     this.controller.get("statusListBanner").innerHTML = "<p>Fetching status...</p>";
 };
 
@@ -119,7 +133,7 @@ StatusViewAssistant.prototype.handleCommand = function(event) {
             stageController.swapScene("mainView", this.status);
             break;
         case "do-updateStatus":
-            this.updateStatus();
+            this.tryUpdate();
             break;
       }
   }
