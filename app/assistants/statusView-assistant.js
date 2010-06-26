@@ -88,7 +88,7 @@ StatusViewAssistant.prototype.updateStatus = function(response) {
     if (response.isInternetConnectionAvailable == true) {
         this.status.updateStatus(this);
     } else {
-        this.notifyFail();
+        this.notifyNoNet();
     }
 };
 
@@ -110,7 +110,7 @@ StatusViewAssistant.prototype.notifyNoNet = function(event) {
  * success of the status update.
  */
 StatusViewAssistant.prototype.notifyFail = function() {
-    this.controller.get("statusListBanner").innerHTML = "<p>Updating status failed, do you have a connection to the internet?</p>";
+    this.controller.get("statusListBanner").innerHTML = "<p>Updating tube status failed, please try again later.</p>";
 };
 
 StatusViewAssistant.prototype.notifySuccess = function() {
