@@ -49,6 +49,9 @@ MainViewAssistant.prototype.setup = function() {
 
     this.controller.setupWidget("mapScroller", { mode: "free" },
                                 this.mapScrollerModel = {});
+
+    $("mapScroller").style.width = Mojo.Environment.DeviceInfo.maximumCardWidth;
+    $("mapScroller").style.height = Mojo.Environment.DeviceInfo.maximumCardHeight;
 };
 
 MainViewAssistant.prototype.activate = function(event) {
