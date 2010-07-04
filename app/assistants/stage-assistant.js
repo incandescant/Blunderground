@@ -24,6 +24,11 @@ function StageAssistant() {
 }
 
 StageAssistant.prototype.setup = function() {
+    if (this.controller.setWindowOrientation) {
+        this.controller.setWindowOrientation("free");
+	this.controller.setWindowProperties("fastAccelerometer");
+    }
+
     this.status = new Status();
 
     this.controller.pushScene("mainView", this.status);

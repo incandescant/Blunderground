@@ -25,6 +25,9 @@ function MainViewAssistant(status) {
 }
 
 MainViewAssistant.prototype.setup = function() {
+    this.handleOrientation = this.handleOrientation.bindAsEventListener(this);
+    this.controller.listen(document, 'orientationchange', this.handleOrientation);
+
     this.controller.setupWidget(Mojo.Menu.appMenu,
                                 this.attributes = {
                                     //omitDefaultItems: true
@@ -61,6 +64,7 @@ MainViewAssistant.prototype.deactivate = function(event) {
 };
 
 MainViewAssistant.prototype.cleanup = function(event) {
+    this.controller.stopListening(document, 'orientationchange', this.handleOrientation);
 };
 
 MainViewAssistant.prototype.handleCommand = function(event) {
@@ -84,3 +88,8 @@ MainViewAssistant.prototype.handleCommand = function(event) {
       }
   }
 };
+
+MainViewAssistant.prototype.handleOrientation = function(event) {
+    $("mapScroller").style.width = this.controller.window.innerWidth + "px";
+    $("mapScroller").style.height= this.controller.window.innerHeight; + "px";
+}

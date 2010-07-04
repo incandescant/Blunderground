@@ -16,4 +16,3 @@ Written by - Joshua Lock <joshual@joshual.me.uk>
 * Remember last position on tube map
 * Station finder
 * Zoom to nearest station (get location from OSM)
-* Handle rotation
