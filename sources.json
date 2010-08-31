@@ -4,6 +4,7 @@
         "scenes": "mainView",
         "source": "app/assistants/mainView-assistant.js"
     },
+    {"source": "app/assistants/stationData.js" },
     {
         "scenes": "statusView",
         "source": "app/assistants/statusView-assistant.js"
