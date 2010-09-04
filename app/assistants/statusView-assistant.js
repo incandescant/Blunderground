@@ -81,7 +81,9 @@ StatusViewAssistant.prototype.cleanup = function(event) {
 };
 
 StatusViewAssistant.prototype.showStatus = function(event) {
-    Mojo.Controller.stageController.pushScene("statusDetails", this.status, event.index);
+    if (this.status.list[event.index].style != "good-service") {
+        Mojo.Controller.stageController.pushScene("statusDetails", this.status, event.index);
+    }
 };
 
 StatusViewAssistant.prototype.updateStatus = function(response) {
