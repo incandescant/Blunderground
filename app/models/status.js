@@ -101,6 +101,7 @@ var Status = Class.create ({
             switch (stati[i].style)
             {
                 case "planned-closure":
+                case "suspended":
                 stati[i].style = "bad-service";
                 break;
                 case "severe-delays":
