@@ -3,5 +3,15 @@
     height: 480px;
 }
 
+body.palm-default {
+/*    background-color: #000;*/
+}
+
+#mapCanvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
 .statusList-line {
 }

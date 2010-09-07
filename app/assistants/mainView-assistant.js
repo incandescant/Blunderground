@@ -62,9 +62,14 @@ MainViewAssistant.prototype.setup = function() {
 
     $("mapScroller").style.width = Mojo.Environment.DeviceInfo.maximumCardWidth;
     $("mapScroller").style.height = Mojo.Environment.DeviceInfo.maximumCardHeight;
+
+    this.ctx = $("mapCanvas").getContext("2d");
+    this.background = new Image();
+    this.background.src = "images/tube-map.png";
 };
 
 MainViewAssistant.prototype.activate = function(event) {
+    this.ctx.drawImage(this.background, 0, 0);
 };
 
 MainViewAssistant.prototype.deactivate = function(event) {
