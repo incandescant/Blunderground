@@ -146,11 +146,25 @@ MainViewAssistant.prototype.doJumpToNearest = function(response) {
     this.ctx.fillStyle = '#fff';
     this.ctx.fillRect(bestStation.imagex + 20, bestStation.imagey - 50,
                         180, 30);
+    this.ctx.strokeRect(bestStation.imagex + 20, bestStation.imagey - 50,
+                        180, 30);
     this.ctx.fillStyle = '#000';
     this.ctx.strokeText("Your nearest station is " + bestStation.name + ",",
                         bestStation.imagex + 25, bestStation.imagey - 40);
     this.ctx.strokeText("which is " + this.prettyDistance(bestDistance) + " away",
                         bestStation.imagex + 45, bestStation.imagey - 25);
+
+    this.timeoutId = setTimeout(this.clearOverlay.bind(this), 10000);
+};
+
+MainViewAssistant.prototype.clearOverlay = function() {
+    Mojo.Log.info("Clear map overlay");
+
+    var canvas = $("mapCanvas");
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.drawImage(this.background, 0, 0);
+
+    this.clearTimeout(this.timeoutId);
 };
 
 MainViewAssistant.prototype.notifyNoLocation = function(response) {
