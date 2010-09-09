@@ -7,7 +7,8 @@ available, the ability to view the status of the various tube lines.
 Blunderground - an open source tube application for the Palm WebOS
 Copyright (C) 2010 Joshua Lock. All rights reserved.
 Released under the terms of the GNU LGPL 2.1
-Written by - Joshua Lock <joshual@joshual.me.uk>
+Written by -    Joshua Lock <joshual@joshual.me.uk>
+Extra awesome - Neil Roberts <bpeeluk@yahoo.co.uk>
 
 = To Do
 * Handle back properly and fix stacking
@@ -15,4 +16,5 @@ Written by - Joshua Lock <joshual@joshual.me.uk>
   processing in the template?
 * Remember last position on tube map
 * Station finder
-* Zoom to nearest station (get location from OSM)
+* Add option when in find nearby, 'show on map'
+
