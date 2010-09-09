@@ -158,13 +158,11 @@ MainViewAssistant.prototype.doJumpToNearest = function(response) {
 };
 
 MainViewAssistant.prototype.clearOverlay = function() {
-    Mojo.Log.info("Clear map overlay");
-
     var canvas = $("mapCanvas");
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.drawImage(this.background, 0, 0);
 
-    this.clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutId);
 };
 
 MainViewAssistant.prototype.notifyNoLocation = function(response) {
