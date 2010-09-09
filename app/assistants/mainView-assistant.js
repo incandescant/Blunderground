@@ -40,7 +40,7 @@ MainViewAssistant.prototype.setup = function() {
                                 },
                                 this.model = {
                                     visible: true,
-                                   items: [
+                                    items: [
                                         { label: "About Blunderground...",
                                           command: "do-aboutBlunderground"}
                                     ]
@@ -49,9 +49,8 @@ MainViewAssistant.prototype.setup = function() {
 
     this.commandMenuModel = {
         label: "Map Menu",
-        items: [
-            {label: "Tube Status", command: "do-tubeStatus"},
-            {label: "Jump to Nearest", command: "do-jumpToNearest"}
+        items: [{label: "Tube Status", command: "do-tubeStatus"},
+                {label: "Jump to Nearest", command: "do-jumpToNearest"}
         ]
     };
     this.controller.setupWidget(Mojo.Menu.commandMenu, undefined,
@@ -77,16 +76,6 @@ MainViewAssistant.prototype.deactivate = function(event) {
 
 MainViewAssistant.prototype.cleanup = function(event) {
     this.controller.stopListening(document, 'orientationchange', this.handleOrientation);
-};
-
-MainViewAssistant.prototype.setBanner = function(msg) {
-    var banner = this.controller.get("mainViewBanner");
-    if (msg) {
-        banner.innerHTML = "<p>" + msg.escapeHTML() + "</p>";
-        banner.show();
-    } else {
-        banner.hide();
-    }
 };
 
 /* Based on http://mathforum.org/library/drmath/view/51722.html
@@ -136,24 +125,39 @@ MainViewAssistant.prototype.doJumpToNearest = function(response) {
         }
     }
 
-    this.setBanner("Your nearest station is " + bestStation.name +
-                   " which is " + this.prettyDistance(bestDistance) + " away");
-
     var scroller = $("mapScroller");
     scroller.mojo.scrollTo(scroller.offsetWidth / 2.0 - bestStation.imagex,
                            /* FIXME - using the offsetHeight doesn't
                             * work well here */
                            100 - bestStation.imagey,
                            true);
+
+    this.ctx.strokeStyle = 'rgba(0,0,255, 0.5)';
+    this.ctx.fillStyle = 'rgba(0,0,255,0.25)';
+    this.ctx.lineWidth = 1;
+    this.ctx.font = "12px sans-serif";
+
+    this.ctx.beginPath();
+    this.ctx.arc(bestStation.imagex, bestStation.imagey, 25, 0, Math.PI*2, true);
+    this.ctx.closePath();
+    this.ctx.stroke();
+    this.ctx.fill();
+
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillRect(bestStation.imagex + 20, bestStation.imagey - 50,
+                        180, 30);
+    this.ctx.fillStyle = '#000';
+    this.ctx.strokeText("Your nearest station is " + bestStation.name + ",",
+                        bestStation.imagex + 25, bestStation.imagey - 40);
+    this.ctx.strokeText("which is " + this.prettyDistance(bestDistance) + " away",
+                        bestStation.imagex + 45, bestStation.imagey - 25);
 };
 
 MainViewAssistant.prototype.notifyNoLocation = function(response) {
-    this.setBanner("Unable to get your current location");
+    Mojo.Log.info("Unable to get your current location");
 };
 
 MainViewAssistant.prototype.jumpToNearest = function() {
-    this.setBanner("Getting location...");
-
     this.controller.serviceRequest('palm://com.palm.location', {
             method: 'getCurrentPosition',
             /* Set the maximum age parameter to let the service know
